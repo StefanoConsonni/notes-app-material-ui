@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Button, Container, TextField } from "@mui/material";
+import { Typography, Button, Container, TextField, FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
@@ -19,6 +19,7 @@ export default function Create() {
 	const [details, setDetails] = useState("");
 	const [titleError, setTitleError] = useState(false);
 	const [detailsError, setDetailsError] = useState(false);
+	const [category, setCategory] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -30,12 +31,12 @@ export default function Create() {
 			setDetailsError(true);
 		}
 		if (title && details) {
-			console.log(title, details);
+			console.log(title, details, category);
 		}
 	};
 
 	return (
-		<Container>
+		<Container size="sm">
 			<Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
 				Create a New Note
 			</Typography>
@@ -63,12 +64,18 @@ export default function Create() {
 					error={detailsError}
 					required
 				/>
-				<Button
-					type="submit"
-					color="secondary"
-					variant="contained"
-					endIcon={<KeyboardArrowRightIcon />}
-					onClick={() => console.log("you clicked this button!")}>
+
+				<FormControl className={classes.field}>
+					<FormLabel>Note Category</FormLabel>
+					<RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
+						<FormControlLabel value="money" control={<Radio color="secondary" />} label="Money" />
+						<FormControlLabel value="todos" control={<Radio color="secondary" />} label="Todos" />
+						<FormControlLabel value="reminders" control={<Radio color="secondary" />} label="Reminders" />
+						<FormControlLabel value="work" control={<Radio color="secondary" />} label="Work" />
+					</RadioGroup>
+				</FormControl>
+
+				<Button type="submit" color="secondary" variant="contained" endIcon={<KeyboardArrowRightIcon />}>
 					Submit
 				</Button>
 			</form>
