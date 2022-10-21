@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+// Material UI
 import { Typography, Button, Container, TextField, FormControl, FormLabel, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -20,6 +23,7 @@ export default function Create() {
 	const [titleError, setTitleError] = useState(false);
 	const [detailsError, setDetailsError] = useState(false);
 	const [category, setCategory] = useState("");
+	const history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -31,7 +35,11 @@ export default function Create() {
 			setDetailsError(true);
 		}
 		if (title && details) {
-			console.log(title, details, category);
+			fetch("http://localhost:8000/notes", {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify({ title, details, category }),
+			}).then(() => history.push("/"));
 		}
 	};
 
