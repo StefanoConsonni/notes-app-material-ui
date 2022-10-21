@@ -44,7 +44,7 @@ export default function Create() {
 	};
 
 	return (
-		<Container size="sm">
+		<Container>
 			<Typography variant="h6" component="h2" color="textSecondary" gutterBottom>
 				Create a New Note
 			</Typography>
