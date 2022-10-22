@@ -1,18 +1,10 @@
 import { AppBar, Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
-// import { makeStyles } from "tss-react/mui";
+import Avatar from "@mui/material/Avatar";
 import { useHistory } from "react-router-dom";
+import { format } from "date-fns";
 
 const drawerWidth = 240;
-
-// const useStyles = makeStyles()((theme) => {
-// 	return {
-// 		page: {
-// 			background: "#f9f9f9",
-// 			width: "100%",
-// 		},
-// 	};
-// });
 
 const menuItems = [
 	{
@@ -28,7 +20,6 @@ const menuItems = [
 ];
 
 export default function Layout({ children }) {
-	// const classes = useStyles();
 	const history = useHistory();
 
 	return (
@@ -36,7 +27,9 @@ export default function Layout({ children }) {
 			{/* app bar */}
 			<AppBar elevation={0} sx={{ width: `calc(100% - ${drawerWidth}px)` }}>
 				<Toolbar>
-					<Typography>{Date().toString()}</Typography>
+					<Typography sx={{ flexGrow: 1 }}>Today is the {format(new Date(), "do MMMM Y")}</Typography>
+					<Typography>Giovanni Pozzi</Typography>
+					<Avatar sx={{ bgcolor: "purple", marginLeft: "10px" }}>GP</Avatar>
 				</Toolbar>
 			</AppBar>
 			{/* side drawer */}

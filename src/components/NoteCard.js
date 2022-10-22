@@ -1,4 +1,4 @@
-import { Typography, Card, CardHeader, CardContent, IconButton } from "@mui/material";
+import { Typography, Card, CardHeader, CardContent, IconButton, Avatar } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export default function NoteCard({ note, handleDelete }) {
@@ -6,6 +6,7 @@ export default function NoteCard({ note, handleDelete }) {
 		<div>
 			<Card elevation={1}>
 				<CardHeader
+					avatar={<Avatar>{note.category[0].toUpperCase()}</Avatar>}
 					action={
 						<IconButton onClick={() => handleDelete(note.id)}>
 							<DeleteOutlinedIcon />
