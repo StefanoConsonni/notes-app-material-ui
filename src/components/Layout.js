@@ -1,23 +1,22 @@
-import { AppBar, Box, CssBaseline, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { makeStyles } from "tss-react/mui";
+import { AppBar, Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
+// import { makeStyles } from "tss-react/mui";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles()(() => {
-	return {
-		page: {
-			background: "#f9f9f9",
-			width: "100%",
-		},
-	};
-});
+// const useStyles = makeStyles()((theme) => {
+// 	return {
+// 		page: {
+// 			background: "#f9f9f9",
+// 			width: "100%",
+// 		},
+// 	};
+// });
 
 const menuItems = [
 	{
-		text: "My Notes",
+		text: "All Notes",
 		icon: <SubjectOutlined color="secondary" />,
 		path: "/",
 	},
@@ -29,54 +28,50 @@ const menuItems = [
 ];
 
 export default function Layout({ children }) {
-	const classes = useStyles();
+	// const classes = useStyles();
+	const history = useHistory();
 
 	return (
-		// <div className={classes.root}>
-		// 	{/* app bar */}
-		// 	<div>app bar</div>
-
-		// 	{/* side drawer */}
-		// 	<Drawer className={classes.drawer} variant="permanent" anchor="left" classes={{ paper: classes.drawerPaper }}>
-		// 		<div>
-		// 			<Typography variant="h5">Material Notes</Typography>
-		// 		</div>
-		// 	</Drawer>
-
-		// 	{/* main content */}
-		// 	<div className={classes.page}>{children}</div>
-		// </div>
-
-		<Box sx={{ display: "flex" }}>
-			<Drawer
-				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					"& .MuiDrawer-paper": {
+		<>
+			{/* app bar */}
+			<AppBar elevation={0} sx={{ width: `calc(100% - ${drawerWidth}px)` }}>
+				<Toolbar>
+					<Typography>{Date().toString()}</Typography>
+				</Toolbar>
+			</AppBar>
+			{/* side drawer */}
+			<Box sx={{ display: "flex" }}>
+				<Drawer
+					sx={{
 						width: drawerWidth,
-						boxSizing: "border-box",
-					},
-				}}
-				variant="permanent"
-				anchor="left">
-				<Typography variant="h5" sx={{ marginY: 2, paddingLeft: 2 }}>
-					Material Notes
-				</Typography>
-				<Divider />
-				<List>
-					{menuItems.map((item) => (
-						<ListItem key={item.text} disablePadding>
-							<ListItemButton>
+						flexShrink: 0,
+						"& .MuiDrawer-paper": {
+							width: drawerWidth,
+							boxSizing: "border-box",
+						},
+					}}
+					variant="permanent"
+					anchor="left">
+					<Typography variant="h5" sx={{ marginY: 2, paddingLeft: 2 }}>
+						Material Notes
+					</Typography>
+					<Divider />
+					<List>
+						{menuItems.map((item) => (
+							<ListItem button key={item.text} onClick={() => history.push(item.path)} sx={{ padding: 1.5 }} disablePadding>
 								<ListItemIcon>{item.icon}</ListItemIcon>
 								<ListItemText primary={item.text} />
-							</ListItemButton>
-						</ListItem>
-					))}
-				</List>
-			</Drawer>
+							</ListItem>
+						))}
+					</List>
+				</Drawer>
 
-			{/* main content */}
-			<div className={classes.page}>{children}</div>
-		</Box>
+				{/* main content */}
+				<div style={{ width: "100%", background: "#f9f9f9", padding: "16px" }}>
+					<div style={{ height: "86px" }}></div>
+					{children}
+				</div>
+			</Box>
+		</>
 	);
 }
